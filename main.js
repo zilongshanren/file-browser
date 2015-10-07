@@ -5,7 +5,7 @@ module.exports = {
     unload: function () {
     },
 
-    'finder:open': function () {
-        Editor.Panel.open('finder.panel');
+    'file-browser:open': function () {
+        Editor.Panel.open('file-browser.panel');
     }
 };

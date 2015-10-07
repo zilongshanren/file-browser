@@ -1,6 +1,6 @@
 (function () {
-Editor.registerPanel( 'finder.panel', {
-    is: 'finder',
+Editor.registerPanel( 'file-browser.panel', {
+    is: 'file-browser',
 
     ready: function () {
     }

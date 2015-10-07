@@ -1,29 +1,27 @@
 {
-  "name": "mini-finder",
+  "name": "File browser",
   "version": "0.1",
-  "description": "A simple finder",
+  "description": "A simple file browser.",
   "author": "Firebox Technology",
   "hosts": {
     "editor-framework": "^0.3.15"
   },
   "main": "main.js",
   "menus": {
-    "Developer/Mini Finder": {
+    "Developer/File Browser": {
       "icon": "panel/icon.png",
       "accelerator": "CmdOrCtrl+1",
-      "message": "finder:open"
+      "message": "file-browser:open"
     }
   },
   "panels": {
     "panel": {
-      "frame": "panel/finder.html",
+      "frame": "panel/panel.html",
       "type": "dockable",
-      "title": "finder",
+      "title": "File Browser",
       "icon": "panel/icon.png",
       "height": 800,
       "shortcuts": {
-        "command+k": "clear",
-        "ctrl+k": "clear"
       },
       "messages": []
     }
