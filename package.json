@@ -1,0 +1,31 @@
+{
+  "name": "mini-finder",
+  "version": "0.1",
+  "description": "A simple finder",
+  "author": "Firebox Technology",
+  "hosts": {
+    "editor-framework": "^0.3.15"
+  },
+  "main": "main.js",
+  "menus": {
+    "Developer/Mini Finder": {
+      "icon": "panel/icon.png",
+      "accelerator": "CmdOrCtrl+1",
+      "message": "finder:open"
+    }
+  },
+  "panels": {
+    "panel": {
+      "frame": "panel/finder.html",
+      "type": "dockable",
+      "title": "finder",
+      "icon": "panel/icon.png",
+      "height": 800,
+      "shortcuts": {
+        "command+k": "clear",
+        "ctrl+k": "clear"
+      },
+      "messages": []
+    }
+  }
+}
