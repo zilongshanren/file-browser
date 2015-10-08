@@ -1,100 +1,70 @@
+/*global Editor */
+
 (function() {
     var fs = require('fs');
 
     Editor.registerPanel('file-browser.panel', {
         is: 'file-browser',
-        listeners: {
-            'item-select': '_onItemSelect'
-        },
-        _onItemSelect: function(event) {
-            console.log("select item");
-        },
-        'selection:selected': function(type, ids) {
-            console.log("selection:selected");
+        _treeRoot: null,
+
+        _generateFileTreeView: function(dir, rootNode, done) {
+            var results = [];
+            fs.readdir(dir, function(err, list) {
+                if (err) {
+                    return done(err);
+                }
+
+                var i = 0;
+                (function next() {
+                    var file = list[i++];
+                    if (!file) {
+                        return done(null, results);
+                    }
+
+                    var fileFullPath = dir + '/' + file;
+                    //add file to tree
+                    var fileItem = this.newEntry();
+                    this.$.tree.addItem(rootNode, fileItem, {
+                        id: fileFullPath,
+                        name: file
+                    });
+
+                    fs.stat(fileFullPath, function(err, stat) {
+                        if (stat && stat.isDirectory()) {
+                            this._generateFileTreeView(fileFullPath, fileItem, function(err, res) {
+                                results = results.concat(res);
+                                next.call(this);
+                            }.bind(this));
+                        } else {
+                            results.push(file);
+                            next.call(this);
+                        }
+                    }.bind(this));
+                }.bind(this))();
+            }.bind(this));
         },
 
         ready: function() {
-            //read a direcotry recursively
-            var walk = function(dir, done) {
-                var results = [];
-                fs.readdir(dir, function(err, list) {
-                    if (err) return done(err);
-                    var i = 0;
-                    (function next() {
-                        var file = list[i++];
-                        if (!file) return done(null, results);
-                        file = dir + '/' + file;
-                        fs.stat(file, function(err, stat) {
-                            if (stat && stat.isDirectory()) {
-                                walk(file, function(err, res) {
-                                    results = results.concat(res);
-                                    next();
-                                });
-                            } else {
-                                results.push(file);
-                                next();
-                            }
-                        });
-                    })();
-                });
-            };
+            this._treeRoot = this.newEntry();
+            this._treeRoot.folded = false;
+            var filepath = '/Users/guanghui/cocos2d-x/cocos/ui';
 
-            var root = this.newEntry();
-            root.folded = false;
-
-            var firstChild = this.newEntry();
-            this.$.tree.addItem(root, firstChild, {
-                id: 'first',
-                name: 'first child'
-            });
-
-            var firstChildSibling = this.newEntry();
-            this.$.tree.addItem(root, firstChildSibling, {
-                id: 'second',
-                name: 'second child'
-            });
-
-            var firstGrandChild = this.newEntry();
-            this.$.tree.addItem(firstChild, firstGrandChild, {
-                id: 'grand child',
-                name: 'grand child node'
-            });
-
-            this.$.tree.addItem(this.$.tree, root, {
+            this.$.tree.addItem(this.$.tree, this._treeRoot, {
                 id: 'tree',
-                name: 'test name'
+                name: filepath
             });
-            this.$.loader.clear();
-            // walk("/Users/guanghui/cocos2d-x/cocos/ui", function(error, files) {
-            //     console.log(files);
-            // });
-        },
-        build: function(data) {
-            console.time('tree');
 
-            data.forEach(function(entry) {
-                var newEL = this.newEntryRecursively(entry);
-                this.$.tree.addItem(this.$.tree, newEL, {
-                    id: entry.path,
-                    name: entry.name
+            this._generateFileTreeView(filepath,
+                this._treeRoot,
+                function(error, files) {
+                    console.log(files);
                 });
 
-                newEL.folded = false;
-            }.bind(this));
-
             this.$.loader.clear();
-            console.timeEnd('tree');
         },
-
-        newEntryRecursively: function(entry) {
-            var el = this.newEntry();
-
-            return el;
-        },
-
         newEntry: function() {
             var ctor = Editor.widgets['tree-item'];
             return new ctor();
-        },
+        }
     });
 })();
