@@ -1,29 +1,29 @@
 {
-  "name": "File browser",
-  "version": "0.1",
-  "description": "A simple file browser.",
-  "author": "Firebox Technology",
-  "hosts": {
-    "editor-framework": "^0.3.15"
-  },
-  "main": "main.js",
-  "menus": {
-    "Developer/File Browser": {
-      "icon": "panel/icon.png",
-      "accelerator": "CmdOrCtrl+1",
-      "message": "file-browser:open"
+    "name": "file-browser",
+    "version": "0.1",
+    "description": "A simple file browser.",
+    "author": "zilongshanren",
+    "hosts": {
+        "editor-framework": "^0.3.15"
+    },
+    "main": "main.js",
+    "menus": {
+        "Developer/File Browser": {
+            "icon": "panel/icon.png",
+            "accelerator": "CmdOrCtrl+1",
+            "message": "file-browser:open"
+        }
+    },
+    "panels": {
+        "panel": {
+            "frame": "panel/panel.html",
+            "type": "dockable",
+            "title": "File Browser",
+            "icon": "panel/icon.png",
+            "height": 800,
+            "width": 600,
+            "shortcuts": {},
+            "messages": []
+        }
     }
-  },
-  "panels": {
-    "panel": {
-      "frame": "panel/panel.html",
-      "type": "dockable",
-      "title": "File Browser",
-      "icon": "panel/icon.png",
-      "height": 800,
-      "shortcuts": {
-      },
-      "messages": []
-    }
-  }
 }
