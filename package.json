@@ -25,5 +25,8 @@
             "shortcuts": {},
             "messages": []
         }
-    }
+    },
+    "message": [
+        "selection:selected"
+    ]
 }

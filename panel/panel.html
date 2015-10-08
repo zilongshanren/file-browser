@@ -1,8 +1,18 @@
 <link rel="import" href="packages://ui-kit/widget/index.html">
+<link rel="import" href="packages://ui-tree/widget/tree-item.html">
+<link rel="import" href="packages://ui-tree/widget/tree-view.html">
 
 <dom-module id="file-browser">
+    <style>
+        :host {
+            display: block;
+        }
+    </style>
+
     <template>
-        This is a test
+        <editor-button>Open ...</editor-button>
+        <tree-view id="tree" class="fit"></tree-view>
+        <editor-loader id="loader" text="Loading" mask></editor-loader>
     </template>
 </dom-module>
 
