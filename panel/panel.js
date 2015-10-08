@@ -60,12 +60,14 @@
                                            console.log(files);
                                        });
 
+            //watch file change
+            Editor.sendToCore('file-browser:watch-file-change', this._filePath);
         },
 
         ready: function() {
         },
         newEntry: function() {
-            var ctor = Editor.widgets['tree-item'];
+            var ctor = Editor.elements['tree-item'];
             return new ctor();
         }
     });

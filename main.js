@@ -1,8 +1,40 @@
+/*global Editor */
+
+var chokidar = require('chokidar');
+
 module.exports = {
     load: function () {
+        this._watcher = null;
     },
 
     unload: function () {
+        this._cleanUpWatcher();
+    },
+    _cleanUpWatcher : function() {
+        if(this._watcher){
+            this._watcher.close();
+            this._watcher = null;
+        }
+    },
+    'file-browser:watch-file-change' : function(filePath) {
+        this._cleanUpWatcher();
+        console.log("hello");
+
+        this._watcher = chokidar.watch(filePath, {
+            persistent : true,
+            followSymlinks: true
+        });
+
+        var log = console.log.bind(console);
+
+        this._watcher
+            .on('add', function(path) { log('File', path, 'has been added'); })
+            .on('change', function(path) { log('File', path, 'has been changed'); })
+            .on('unlink', function(path) { log('File', path, 'has been removed'); })
+            .on('addDir', function(path) { log('Directory', path, 'has been added'); })
+            .on('unlinkDir', function(path) { log('Directory', path, 'has been removed'); });
+
+
     },
 
     'file-browser:open': function () {
