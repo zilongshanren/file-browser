@@ -6,6 +6,7 @@
     Editor.registerPanel('file-browser.panel', {
         is: 'file-browser',
         _treeRoot: null,
+        _filePath : '',
 
         _generateFileTreeView: function(dir, rootNode, done) {
             var results = [];
@@ -43,24 +44,25 @@
                 }.bind(this))();
             }.bind(this));
         },
-
-        ready: function() {
+        _openPath : function() {
+            this.$.tree.clear();
             this._treeRoot = this.newEntry();
             this._treeRoot.folded = false;
-            var filepath = '/Users/guanghui/cocos2d-x/cocos/ui';
 
             this.$.tree.addItem(this.$.tree, this._treeRoot, {
                 id: 'tree',
-                name: filepath
+                name: this._filePath
             });
 
-            this._generateFileTreeView(filepath,
-                this._treeRoot,
-                function(error, files) {
-                    console.log(files);
-                });
+            this._generateFileTreeView(this._filePath,
+                                       this._treeRoot,
+                                       function(error, files) {
+                                           console.log(files);
+                                       });
 
-            this.$.loader.clear();
+        },
+
+        ready: function() {
         },
         newEntry: function() {
             var ctor = Editor.widgets['tree-item'];

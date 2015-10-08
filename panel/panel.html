@@ -4,16 +4,17 @@
 
 <dom-module id="file-browser">
     <style>
-        :host {
-            display: block;
-        }
+     #open-button{
+         float : right
+     }
     </style>
-
     <template>
-        <editor-button>Open ...</editor-button>
-        <tree-view id="tree" class="fit"></tree-view>
-        <editor-loader id="loader" text="Loading" mask></editor-loader>
+        <editor-input id="folderPath"  placeholder="Input a valid file path here" value="{{_filePath}}"></editor-input>
+        <editor-button id="open-button" on-click="_openPath">
+            Refresh
+        </editor-button>
+        <tree-view id="tree" class="flex-1 fley-1"></tree-view>
     </template>
-</dom-module>
 
-<script type="text/javascript" src="panel.js"></script>
+    <script type="text/javascript" src="panel.js"></script>
+</dom-module>
