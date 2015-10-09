@@ -29,6 +29,7 @@ module.exports = {
 
         this._watcher
             .on('add', function(path) {
+                log('File', path, 'has been add');
                 Editor.sendToPanel('file-browser.panel', 'file-browser:add-item', path );
             })
             .on('change', function(path) {
@@ -38,6 +39,7 @@ module.exports = {
                 log('File', path, 'has been removed');
             })
             .on('addDir', function(path) {
+                log('Directory', path, 'has been added');
                 Editor.sendToPanel('file-browser.panel', 'file-browser:add-item', path );
             })
             .on('unlinkDir', function(path) {
