@@ -44,13 +44,17 @@
                 }.bind(this))();
             }.bind(this));
         },
-        _openPath : function() {
+        'file-browser:add-item' : function() {
+            this.$.tree.clear();
+            this._refreshOpen();
+        },
+        _refreshOpen: function() {
             this.$.tree.clear();
             this._treeRoot = this.newEntry();
-            this._treeRoot.folded = false;
+            // this._treeRoot.folded = false;
 
             this.$.tree.addItem(this.$.tree, this._treeRoot, {
-                id: 'tree',
+                id: 'tree' + this._filePath,
                 name: this._filePath
             });
 
@@ -59,7 +63,9 @@
                                        function(error, files) {
                                            console.log(files);
                                        });
-
+        },
+        _openPath : function() {
+            this._refreshOpen();
             //watch file change
             Editor.sendToCore('file-browser:watch-file-change', this._filePath);
         },

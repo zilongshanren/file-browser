@@ -23,10 +23,12 @@
             "height": 800,
             "width": 600,
             "shortcuts": {},
-            "messages": []
+            "messages": [
+                "file-browser:add-item"
+            ]
         }
     },
-    "message": [
-        "selection:selected"
+    "message" : [
+        
     ]
 }
