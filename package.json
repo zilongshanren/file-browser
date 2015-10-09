@@ -25,10 +25,10 @@
             "shortcuts": {},
             "messages": [
                 "file-browser:add-item"
-            ]
+            ],
+            "shortcuts" : {
+                "del" : "onDeleteKeyPressed"
+            }
         }
-    },
-    "message" : [
-        
-    ]
+    }
 }

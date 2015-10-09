@@ -6,7 +6,7 @@
     Editor.registerPanel('file-browser.panel', {
         is: 'file-browser',
         _treeRoot: null,
-        _filePath : '',
+        _filePath: '',
 
         _generateFileTreeView: function(dir, rootNode) {
             var files = fs.readdirSync(dir);
@@ -20,37 +20,41 @@
                 });
                 if (fs.statSync(fileFullPath).isDirectory()) {
                     this._generateFileTreeView(fileFullPath, fileItem);
+                    fileItem.folded = false;
                 }
             }.bind(this));
         },
-        'file-browser:add-item' : function(path) {
+        'file-browser:add-item': function(path) {
             this._refreshOpen();
         },
         _refreshOpen: function() {
             this.$.tree.clear();
 
             this._treeRoot = this.newEntry();
-            // this._treeRoot.folded = false;
-
             this.$.tree.addItem(this.$.tree, this._treeRoot, {
                 id: 'tree' + this._filePath,
                 name: this._filePath
             });
 
             this._generateFileTreeView(this._filePath,
-                                       this._treeRoot,
-                                       function(error, files) {
-                                           console.log(files);
-                                       });
+                this._treeRoot,
+                function(error, files) {
+                    console.log(files);
+                });
+
+            this.$.tree.selectItemById('tree' + this._filePath);
+            this._treeRoot.folded = false;
 
         },
-        _openPath : function() {
+        onDeleteKeyPressed: function() {
+
+        },
+        _openPath: function() {
             this._refreshOpen();
             //watch file change
             Editor.sendToCore('file-browser:watch-file-change', this._filePath);
         },
-        ready: function() {
-        },
+        ready: function() {},
         newEntry: function() {
             var ctor = Editor.elements['tree-item'];
             return new ctor();
