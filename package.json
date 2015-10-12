@@ -24,10 +24,11 @@
             "width": 600,
             "shortcuts": {},
             "messages": [
-                "file-browser:add-item"
+                "file-browser:add-item",
+                "selection:selected"
             ],
-            "shortcuts" : {
-                "del" : "onDeleteKeyPressed"
+            "shortcuts": {
+                "del": "onDeleteKeyPressed"
             }
         }
     }

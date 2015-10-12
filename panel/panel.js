@@ -8,6 +8,21 @@
         _treeRoot: null,
         _filePath: '',
 
+        listeners : {
+            'item-select': '_onItemSelect',
+        },
+
+        _onItemSelect: function ( event ) {
+            event.stopPropagation();
+
+            if ( event.detail.shift ) {
+                Editor.Selection.confirm();
+            } else if ( event.detail.toggle ) {
+                Editor.Selection.confirm();
+            } else {
+                Editor.Selection.select( 'asset', event.target._userId, true );
+            }
+        },
         _generateFileTreeView: function(dir, rootNode) {
             var files = fs.readdirSync(dir);
             files.forEach(function(file) {
@@ -45,6 +60,16 @@
             this.$.tree.selectItemById('tree' + this._filePath);
             this._treeRoot.folded = false;
 
+        },
+        'selection:selected': function ( type, ids ) {
+            if ( type !== 'asset' )
+            {
+                return;
+            }
+
+            ids.forEach( function ( id ) {
+                this.$.tree.selectItemById(id);
+            }.bind(this));
         },
         onDeleteKeyPressed: function() {
 
