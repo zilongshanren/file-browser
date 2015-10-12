@@ -23,7 +23,7 @@
             "height": 800,
             "width": 600,
             "shortcuts": {
-                "f1": "onDeleteKeyPressed",
+                "command+backspace": "onDeleteKeyPressed",
                 "up": "selectPrev",
                 "down": "selectNext"
             },
