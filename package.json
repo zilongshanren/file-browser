@@ -22,14 +22,15 @@
             "icon": "panel/icon.png",
             "height": 800,
             "width": 600,
-            "shortcuts": {},
+            "shortcuts": {
+                "f1": "onDeleteKeyPressed",
+                "up": "selectPrev",
+                "down": "selectNext"
+            },
             "messages": [
                 "file-browser:add-item",
-                "selection:selected"
-            ],
-            "shortcuts": {
-                "del": "onDeleteKeyPressed"
-            }
+                "file-browser:delete-item"
+            ]
         }
     }
 }
